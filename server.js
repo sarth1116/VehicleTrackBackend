@@ -1,33 +1,24 @@
-const express = require("express");
-const fs = require("fs");
+const express = require('express');
 const cors = require('cors');
+const fs = require('fs');
 const app = express();
 
-// Enable CORS for all routes
-// Replace '*' with your frontend URL for better security
-app.use(cors(
+app.use(cors()); // Enable CORS for all routes
 
-));
-
-
-app.get("/api/route", (req, res) => {
-    // Path to the JSON data file
-    const dataPath = __dirname + "./data/dummy.json"; // Adjust the path if necessary
-
-    // Read vehicle location data from data.json
-    fs.readFile(dataPath, "utf8", (err, data) => {
+// Define the /api/route endpoint
+app.get('/api/route', (req, res) => {
+    // Read data from a JSON file or any data source
+    fs.readFile(__dirname + './data/dummy.json', 'utf8', (err, data) => {
         if (err) {
-            console.error("Error reading data:", err);
-            return res.status(500).send("Error reading data");
+            console.error('Error reading data:', err);
+            return res.status(500).send('Error reading data');
         }
-
-        res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-        res.send(JSON.parse(data)); // Send the parsed JSON data
+        res.json(JSON.parse(data)); // Send the data as JSON response
     });
 });
 
-// Define the server's port
-const PORT = process.env.PORT || 3000;
+// Start the server
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`); // Log server status
+    console.log(`Server running on port ${PORT}`);
 });
