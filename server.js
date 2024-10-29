@@ -3,31 +3,26 @@ const fs = require("fs");
 const cors = require("cors");
 const app = express();
 
-// Enable CORS for all routes
-// Replace '*' with your frontend URL for better security
-app.use(cors({
-    origin: 'https://vehicle-track-frontend.vercel.app' // Update to your frontend URL
-}));
+// Configure CORS to allow requests from your frontend
+const corsOptions = {
+    origin: 'https://vehicle-track-frontend.vercel.app', // Replace with your frontend URL
+    methods: ['GET'], // Specify allowed methods
+    credentials: true, // Allow credentials if needed (like cookies, authorization headers)
+};
 
+app.use(cors(corsOptions)); // Enable CORS for all routes with specified options
 
 app.get("/api/route", (req, res) => {
-    // Path to the JSON data file
-    const dataPath = __dirname + "/data/data.json"; // Adjust the path if necessary
-
-    // Read vehicle location data from data.json
-    fs.readFile(dataPath, "utf8", (err, data) => {
+    fs.readFile(__dirname + "/backend/data/data.json", "utf8", (err, data) => {
         if (err) {
             console.error("Error reading data:", err);
             return res.status(500).send("Error reading data");
         }
-
-        res.setHeader('Access-Control-Allow-Origin', '*'); // Allow all origins
-        res.send(JSON.parse(data)); // Send the parsed JSON data
+        res.send(JSON.parse(data)); // Send JSON response
     });
 });
 
-// Define the server's port
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`); // Log server status
+    console.log(`Server running on port ${PORT}`);
 });
