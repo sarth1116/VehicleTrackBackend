@@ -9,10 +9,11 @@ app.use(cors()); // Enable CORS for all routes
 // Route to get the vehicle location data
 app.get("/api/route", (req, res) => {
   // Read vehicle location data from dummy.json in the Data folder
-  fs.readFile(__dirname + "/backend/data.json", "utf8", (err, data) => {
+  fs.readFile(__dirname + "/data.json", "utf8", (err, data) => {
     if (err) throw err; // Handle any read errors
     res.send(JSON.parse(data)); // Send JSON-parsed data as the response
   });
+  
 });
 
 const PORT = process.env.PORT || 3000; // Define the server's port
