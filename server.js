@@ -2,19 +2,16 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const port = 4000;
+
+// Load vehicle route data from data.json
 const vehicleData = require('./data.json');
 
 // Use CORS middleware
-app.use(cors()); // Enable CORS for all routes
+app.use(cors());
 
-// Fetch vehicle data based on the date
-app.get('/api/route/:date', (req, res) => {
-    const date = req.params.date;
-    if (vehicleData[date]) {
-        res.json(vehicleData[date]);
-    } else {
-        res.status(404).send("No data found for this date");
-    }
+// Endpoint to get the vehicle route data
+app.get('/api/route', (req, res) => {
+    res.json(vehicleData); // Return the predefined route
 });
 
 // Start the server
