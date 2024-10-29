@@ -7,7 +7,7 @@ const cors = require("cors"); // To allow cross-origin requests
 app.use(cors()); // Enable CORS for all routes
 
 // Route to get the vehicle location data
-app.get("/api/vehicle", (req, res) => {
+app.get("/api/route", (req, res) => {
   // Read vehicle location data from dummy.json in the Data folder
   fs.readFile(__dirname + "/backend/data.json", "utf8", (err, data) => {
     if (err) throw err; // Handle any read errors

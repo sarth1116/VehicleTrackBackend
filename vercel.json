@@ -1,0 +1,16 @@
+{
+    "version": 2,
+    "functions": {
+      "api/**/*.js": {
+        "includeFiles": "backend/**/*",
+        "runtime": "nodejs18.x" // Ensure you specify the correct Node.js version
+      }
+    },
+    "routes": [
+      {
+        "src": "/api/(.*)",
+        "dest": "backend/server.js" // Make sure this path is correct
+      }
+    ]
+  }
+  
