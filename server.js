@@ -6,7 +6,7 @@ const app = express();
 app.use(cors()); // Enable CORS for all routes
 
 app.get("/api/route", (req, res) => {
-    fs.readFile(__dirname + "/data.json", "utf8", (err, data) => {
+    fs.readFile(__dirname + "/backend/data.json", "utf8", (err, data) => {
         if (err) {
             console.error("Error reading data:", err);
             return res.status(500).send("Error reading data");
